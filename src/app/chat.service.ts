@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ChatService {
   // 🔹 Change this to your deployed Flask backend URL on Render when ready
-  private baseUrl = 'http://127.0.0.1:5000'; 
+  private baseUrl = 'https://chatlite-backend.onrender.com'; 
 
   constructor(private http: HttpClient) {}
 
