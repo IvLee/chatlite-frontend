@@ -1,0 +1,79 @@
+<!-- Fixed Title Bar -->
+<div class="title-bar">
+  <div class="title">Chat Lite AI</div>
+  <div class="menu">
+    <button class="hamburger" (click)="toggleMenu()">☰</button>
+    <div class="menu-content" *ngIf="menuOpen">
+       <button (click)="openAbout()">About</button>
+<button (click)="openInstructions()">Instructions</button>
+      <button (click)="toggleTheme()">
+        Switch to {{ theme === 'light' ? 'Dark' : 'Light' }} Mode
+      </button>
+      <button (click)="clearHistory()">
+        Clear Chat History
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Main Chat Wrapper -->
+<div class="chat-wrapper">
+
+  <!-- Scrollable chat area with sticky input bar inside -->
+  <div class="message-list" id="chat-box" [class.at-bottom]="atBottom">
+    <!-- Spacer pushes few messages down -->
+    <div class="message-spacer"></div>
+
+    <!-- Messages -->
+    <div *ngFor="let msg of messages" [ngClass]="msg.role === 'user' ? 'user-msg' : 'bot-msg'">
+      <span>{{ msg.content }}</span>
+    </div>
+
+    <!-- Sticky input bar at the bottom -->
+    <div class="input-bar">
+      <textarea 
+        [(ngModel)]="messageInput" 
+        (input)="adjustTextareaHeight($event)" 
+        (keydown)="onKeyPress($event)" 
+        placeholder="Type your message..."></textarea>
+    </div>
+  </div>
+
+</div>
+
+<!-- About Modal -->
+<div class="modal-backdrop" *ngIf="showAbout" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>About Chat Lite AI</h2>
+    <p>
+      Chat Lite AI is your witty, sarcastic (but still helpful) AI buddy for quick, simple conversations.
+      Change its personality anytime with <code>/role</code>, switch themes, and enjoy texting‑style chats
+      that feel fast and natural.
+    </p>
+    <p>
+      <strong>Powered by</strong> Angular 20 + Node.js (frontend),
+      Flask + Python (backend), and OpenAI (AI smarts) — it’s built to be lightweight, speedy, and easy to use anywhere.
+    </p>
+    <button (click)="closeModal()">Close</button>
+  </div>
+</div>
+
+<!-- Instructions Modal -->
+<div class="modal-backdrop" *ngIf="showInstructions" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>How to Use</h2>
+    <ol>
+      <li><strong>Type & Send</strong> → Write your message at the bottom and hit <strong>Enter</strong> to send.<br>
+        <em>Tip: Shift+Enter makes a new line.</em>
+      </li>
+      <li><strong>Change the Vibe</strong> → Use <code>/role</code> to swap the bot’s personality — from helpful to sassy and everything in between.</li>
+      <li><strong>Switch Themes</strong> → Light or dark mode — pick your favorite in the menu.</li>
+      <li><strong>Clear the Chat</strong> → Wipe the conversation anytime from the menu or with <code>/clear</code>.</li>
+      <li><strong>Forget Everything</strong> → Use <code>/forget</code> to erase the chat <em>and</em> keep your current AI role.</li>
+      <li><strong>Reset to Default</strong> → Use <code>/reset</code> to erase the chat <em>and</em> return the AI role and theme to default settings.</li>
+      <li><strong>Scroll Around</strong> → It’ll auto‑scroll for new messages, but you can scroll up to read older ones anytime.</li>
+    </ol>
+    <p>That’s it — easy, fast, and ready to chat. 🎉</p>
+    <button (click)="closeModal()">Close</button>
+  </div>
+</div>
