@@ -27,6 +27,8 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {
+    document.body.classList.add('dark-mode');
+
     this.chatService.getHistory().subscribe(data => {
       this.messages = data.history.map((m: any) => ({
         role: m[0],

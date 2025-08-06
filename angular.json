@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "chatbot-frontend": {
+    "chatlite-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -26,7 +26,8 @@
             ],
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            "outputPath": "dist/chatlite-frontend"
           },
           "configurations": {
             "production": {
@@ -56,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "chatbot-frontend:build:production"
+              "buildTarget": "chatlite-frontend:build:production"
             },
             "development": {
-              "buildTarget": "chatbot-frontend:build:development"
+              "buildTarget": "chatlite-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -85,8 +86,12 @@
               "src/styles.css"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
-  }
+  },
+  "defaultProject": "chatlite-frontend"
 }
